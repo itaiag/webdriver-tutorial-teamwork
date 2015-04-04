@@ -38,20 +38,34 @@ public class AddTaskTests {
 		driver.findElement(By.id("ordLoginSubmitBtn")).click();
 
 		// Select the task sub menu
+		driver.findElement(By.cssSelector("li#tab_tasks > a")).click();
 
 		// Add task list
+		wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("li#tab_tasks.sel")));
+		driver.findElement(By.cssSelector("li#liBFOATL > button")).click();
 		
 		// Enter new task list name
+		final String taskListName = USER_NAME + "'s Task List " + System.currentTimeMillis();
+		driver.findElement(By.id("newTaskListName")).sendKeys(taskListName);
+		driver.findElement(By.id("btnCreateTaskList")).click();
 
 		// Add new task
+		driver.findElement(By.linkText(taskListName)).click();
+		driver.findElement(By.cssSelector("button[onclick='TaskLists.AddTaskFromTasklistPage();']")).click();
+
+		final String taskName = "My Task " + System.currentTimeMillis();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span.twitter-typeahead input[placeholder='What needs to be done?']"))).sendKeys(taskName);
+		driver.findElement(By.cssSelector("input[value='Save my changes']")).click();
 
 		//Getting back to the tasks view by clicking again on the task sub menu
+		driver.findElement(By.cssSelector("li#tab_tasks > a")).click();
 		
 		//Asserting that the new task was created
+		driver.findElement(By.xpath("//span[@class='taskName' and contains(.,'"+taskName+"')]"));
 		
 		// Signing out
-		driver.findElement(By.xpath("//*[@id='trUserPic']/a")).click();
-		driver.findElement(By.xpath("//a[@href='?action=logout']")).click();
+		driver.findElement(By.cssSelector("#trUserPic > a")).click();
+		driver.findElement(By.cssSelector("a[href='?action=logout']")).click();
 	}
 
 	@AfterMethod
