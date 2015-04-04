@@ -29,10 +29,17 @@ public class TestLogin {
 	@Test
 	public void testLogin() {
 		// Login
+		driver.findElement(By.id("userLogin")).sendKeys(USER_NAME);
+		driver.findElement(By.id("password")).sendKeys(PASSWORD);
+		driver.findElement(By.id("lRemMeLbl")).click();
+		driver.findElement(By.id("ordLoginSubmitBtn")).click();
 
 		// Making sure that the login was successful
+		driver.findElement(By.id("pageTitle"));
 
 		// Logout
+		driver.findElement(By.cssSelector("#trUserPic > a")).click();
+		driver.findElement(By.cssSelector("a[href='?action=logout']")).click();
 	}
 
 	@AfterMethod
