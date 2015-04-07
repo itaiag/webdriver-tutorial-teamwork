@@ -37,18 +37,31 @@ public class AddTaskTests {
 		driver.findElement(By.id("password")).sendKeys(PASSWORD);
 		driver.findElement(By.id("ordLoginSubmitBtn")).click();
 
-		// Select the task sub menu
+		// Select the task sub menu.
+		// HINT: You can use the //li[@id='tab_tasks']/a locator
 
 		// Add task list
 		
+		// **HINT:** If you will find the *Add Task List* before the *tasks* menu
+		// page is loaded, you may catch the *add* button of the *Overview*
+		// page. In this case, when you will try to operate on the button you
+		// will get a stale element exception. To avoid it you need to wait for
+		// the <i>tasks</i> page to be selected. For this, you can use the
+		// following xpath: //li[@id='tab_tasks' and @class='first sel']
+		
+
 		// Enter new task list name
+		final String taskListName = USER_NAME + "'s Task List " + System.currentTimeMillis();
 
 		// Add new task
 
-		//Getting back to the tasks view by clicking again on the task sub menu
-		
-		//Asserting that the new task was created
-		
+		final String taskName = "My Task " + System.currentTimeMillis();
+
+		// Getting back to the tasks view by clicking again on the task sub menu
+
+		// Asserting that the new task was created
+		driver.findElement(By.xpath("//span[@class='taskName' and contains(.,'" + taskName + "')]"));
+
 		// Signing out
 		driver.findElement(By.xpath("//*[@id='trUserPic']/a")).click();
 		driver.findElement(By.xpath("//a[@href='?action=logout']")).click();
